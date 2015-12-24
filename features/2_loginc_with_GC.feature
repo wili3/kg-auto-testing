@@ -1,6 +1,6 @@
 Feature: Login
   As a Android user
-  I want to login into GoldenManager app by g+ provider
+  I want to login into GoldenManager app by GC provider
   So that I can sign amazing real soccer players
 
 Scenario: Login with GC

@@ -281,6 +281,8 @@ $d_caps = desired_caps_android if res == 'a'
 $d_caps[:caps][:fullReset] = true if res_yn == 'y'
 $d_caps[:caps][:fullReset] = false if res_yn == 'n'
 
+%x( ideviceinstaller -i #{APP_PATH})
+
 $driver_instance =Appium::Driver.new($d_caps).start_driver
 $driver_instance.manage.timeouts.implicit_wait = 0
 Appium.promote_appium_methods self.class
