@@ -1,0 +1,5 @@
+[caps]
+platformName = "ios"
+deviceName = "iPad de Guillem"
+udid = "b2ff805e53b8333cdaceb10fca1d3d1f6a6900d2"
+app = "./goldenmanager-ios/build/Debug-iphonesimulator/GoldenManager.app"
