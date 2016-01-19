@@ -1,4 +1,4 @@
-Feature: Login
+Feature: Logout
   As a GM user
   I want to logout
   So that I can sign amazing real soccer players

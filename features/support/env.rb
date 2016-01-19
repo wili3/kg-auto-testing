@@ -66,7 +66,7 @@ def desired_caps_android
       deviceName:       'ZY2222MK2P',
       newCommandTimeout: 1000,  
       #udid:             'b2ff805e53b8333cdaceb10fca1d3d1f6a6900d2',
-      bundleId:         'com.keradgames.goldenmanager',
+      bundleId:         'com.keradgames.goldenmanager.pre',
       #autoAcceptAlerts: true,
       app:              ANDROID_APP_PATH,
       fullReset:        false,
@@ -76,7 +76,7 @@ def desired_caps_android
   }
 end
 
-$default_d_caps = desired_caps_real_device
+$default_d_caps = desired_caps_android
 
 def is_real_device(used_caps)
   $real_devices.include? used_caps[:caps][:deviceName]
@@ -267,19 +267,22 @@ end
 
 #guarrada
 
-puts 'What do you want to use? a = android , i =  ios real device , is = ios simulator'
-res = gets.chomp
+# puts 'What do you want to use? a = android , i =  ios real device , is = ios simulator'
+# res = gets.chomp
 
-puts 'Do you want full reset ? y/n'
-res_yn = gets.chomp
+# puts 'Do you want full reset ? y/n'
+# res_yn = gets.chomp
 
 
-$d_caps = desired_caps_simulator if res == 'is'
-$d_caps = desired_caps_real_device if res == 'i'
-$d_caps = desired_caps_android if res == 'a'
+# $d_caps = desired_caps_simulator if res == 'is'
+# $d_caps = desired_caps_real_device if res == 'i'
+# $d_caps = desired_caps_android if res == 'a'
 
-$d_caps[:caps][:fullReset] = true if res_yn == 'y'
-$d_caps[:caps][:fullReset] = false if res_yn == 'n'
+# $d_caps[:caps][:fullReset] = true if res_yn == 'y'
+# $d_caps[:caps][:fullReset] = false if res_yn == 'n'
+
+
+$d_caps = desired_caps_android
 
 $driver_instance =Appium::Driver.new($d_caps).start_driver
 $driver_instance.manage.timeouts.implicit_wait = 0

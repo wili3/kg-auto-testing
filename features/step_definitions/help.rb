@@ -91,6 +91,7 @@ end
 Then(/^I should navigate to the landing$/) do
   wait{text("Jugar con Facebook")} if device_is_android?
   wait{button_exact("Jugar con Facebook")} if !device_is_android?
+  driver_quit
 end
 
 
@@ -100,4 +101,114 @@ end
 
 When(/^click login with GC button$/) do
   wait{button_exact('Jugar con Game Center').click}
+end
+
+#######################
+#  General navigation
+#######################
+
+When(/^the dashboard is loaded$/) do
+  
+end
+
+Then(/^I should navigate to each section which is in the sidemenu$/) do
+  begin
+      find_element(:id => 'com.keradgames.goldenmanager:id/img_actionbar_offers').click
+      find_element(:id => 'com.keradgames.goldenmanager:id/txt_offers_close').click
+  rescue
+      puts 'NO OFFERS AVAILABLE'
+  end
+#   binding.pry
+end
+
+Then(/^to the line up$/) do
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_2').click
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_line_up').click
+end
+
+Then(/^I should go back to stats$/) do
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_team_stats').click
+end
+
+Then(/^I should go to trainings$/) do
+  click_side_menu
+  sidemenu_go_to_initial
+
+  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_3').click
+end
+
+Then(/^I should go to the market$/) do
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_4').click
+  begin
+    wait({timeout:15,interval:1}) do
+      txt = text('Toca para continuar')
+      if txt.displayed?
+        sleep (3)
+        txt.click 
+        sleep(3)
+      end
+    end
+    wait({timeout:15,interval:1}) do
+      txt = text('Toca para continuar')
+      if txt.displayed?
+        sleep (3)
+        txt.click 
+        sleep(3)
+      end
+    end
+  rescue  
+    puts 'NO MARKET INGAME TUTORIAL'
+  end   
+end
+
+Then(/^I should go to the world tour overview$/) do
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_5').click
+end
+
+Then(/^I should go to each competitions section$/) do
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_6').click
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_forthcoming').click
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_league').click
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_gmcup').click
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_champions').click
+end
+
+Then(/^finally I should get into each Club section$/) do
+  click_side_menu
+  sidemenu_go_to_initial
+  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_7').click
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_ticket_prices').click
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_sponsors').click
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_financial_report').click
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_kits').click
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_trophy_room').click
+  click_side_menu
+  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_profile').click
+  click_side_menu
+  sidemenu_go_to_initial
+  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_0').click
+end
+
+def click_side_menu
+  begin
+    find_element(:id => 'com.keradgames.goldenmanager:id/actionbar_title').click
+  rescue
+    puts "Can't deploy side menu"
+  end
+end
+
+def sidemenu_go_to_initial
+  find_element(:id => 'com.keradgames.goldenmanager:id/menu_back').click
 end
