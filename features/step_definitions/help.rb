@@ -80,12 +80,14 @@ end
 
 When(/^click logout button$/) do
   wait{text_exact('0').click} if device_is_android?
-  wait{button_exact('€+').click} if !device_is_android?
   wait{text('7').click} if device_is_android?
-  wait{button_exact('7').click} if !device_is_android?
-  wait{button('CERRAR SESIÓN').click}
+  wait{button('CERRAR SESIÓN').click} if device_is_android?
   wait{find_element(:xpath => "//android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.TextView[5]").click} if device_is_android?
-  wait{button('CERRAR SESIÓN').click} if !device_is_android?
+
+  open_sidemenu if !device_is_android?
+  find_element(:name => '7').click if !device_is_android?
+  button('CERRAR SESIÓN').click if !device_is_android?
+  button('CERRAR SESIÓN').click if !device_is_android?
 end
 
 Then(/^I should navigate to the landing$/) do
@@ -100,4 +102,12 @@ end
 
 When(/^click login with GC button$/) do
   wait{button_exact('Jugar con Game Center').click}
+end
+
+def open_sidemenu
+  begin 
+    button_exact("€0").click
+  rescue
+    puts "Can't open sidemenu"
+  end
 end

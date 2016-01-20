@@ -29,8 +29,8 @@ def desired_caps_real_device
 	desired_caps = {
 	  caps: {
 	    platformName: 		'iOS',
-	    versionNumber: 		'9.0',
-	    deviceName:   		'iPad de Guillem',
+	    versionNumber: 		'8.4.1',
+	    deviceName:   		'iPhone de Guillem',
       newCommandTimeout: 1000,  
 	    udid:         		'52257b7d0ae102e2d79f02448b5486aca8c6e715',
 	    autoAcceptAlerts: true,
