@@ -1,7 +1,7 @@
-Feature: Login
-  As a GM user
+Feature: Logout
+  As a iOS user
   I want to logout
-  So that I can sign amazing real soccer players
+  So that I can gtfo from here
 
 Scenario: Logout
   Given I have the App running with appium

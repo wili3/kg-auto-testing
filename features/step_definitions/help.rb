@@ -93,6 +93,7 @@ end
 Then(/^I should navigate to the landing$/) do
   wait{text("Jugar con Facebook")} if device_is_android?
   wait{button_exact("Jugar con Facebook")} if !device_is_android?
+  driver_quit
 end
 
 
@@ -110,4 +111,117 @@ def open_sidemenu
   rescue
     puts "Can't open sidemenu"
   end
+end
+
+def close_sidemenu
+  begin
+
+  rescue
+
+  end
+end
+
+def go_initial_sidemenu
+  text_exact('y').click
+end
+
+
+#######################
+#  General Navigation
+#######################
+
+When(/^the dashboard is loaded$/) do
+
+end
+
+Then(/^I should navigate to each section which is in the sidemenu$/) do
+  
+end
+
+Then(/^to the line up$/) do
+  open_sidemenu
+  text_exact('K').click
+  text_exact('1').click
+  button_exact("€1").click
+end
+
+Then(/^I should go back to stats$/) do
+  text_exact('I').click
+  button_exact("€I").click
+  go_initial_sidemenu
+end
+
+Then(/^I should go to trainings$/) do
+  text_exact('Entrenamientos').click
+  button_exact('€2').click
+end
+
+Then(/^I should go to the market$/) do
+  text_exact('Mercado').click
+  begin
+    wait({timeout:15,interval:1}) do
+      txt = text('Toca para continuar')
+      if txt.displayed?
+        sleep (2)
+        txt.click 
+        sleep (2)
+      end
+    end 
+    begin 
+      wait({timeout:15,interval:1}) do
+      txt = text('Toca para continuar')
+        if txt.displayed?
+          sleep (2)
+          txt.click 
+          sleep (2)
+        end
+      end 
+    rescue
+      puts 'only one market ingame tutorial'
+    end
+  rescue
+    puts 'no Market ingame tutorial'
+  end
+  button_exact('€3').click
+end
+
+Then(/^I should go to the world tour overview$/) do
+  text_exact("Gira mundial").click
+  button_exact('€à').click
+end
+
+Then(/^I should go to each competitions section$/) do
+  text_exact("Competiciones").click
+  text_exact("Próximos partidos").click
+  button_exact("€A").click
+  text_exact("Liga").click
+  button_exact("€!").click
+  text_exact("Copa GM").click
+  button_exact("€\"").click
+  text_exact("Champions League").click
+  button_exact("€#").click
+  go_initial_sidemenu
+end
+
+Then(/^finally I should get into each Club section$/) do
+  text_exact("Club").click
+  text_exact("Precio entradas").click
+  button_exact("€g").click
+  text_exact("Patrocinadores").click
+  button_exact("€<").click
+  begin
+    find_element(:xpath => '//UIAApplication[1]/UIAWindow[2]/UIAButton[3]').click
+  rescue
+    puts 'already signed sponsors'
+  end
+  text_exact("Informe financiero").click
+  button_exact("€;").click
+  text_exact("Equipaciones").click
+  button_exact("€ì").click
+  text_exact("Sala de trofeos").click
+  button_exact("€(").click
+  text_exact("Perfil del club").click
+  button("Aceptar").click
+  button_exact("€:").click
+  go_initial_sidemenu
 end

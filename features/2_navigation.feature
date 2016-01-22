@@ -1,5 +1,5 @@
 Feature: Navigation
-  As a Android user
+  As a iOS user
   I want to navigate into GoldenManager app 
   So that I can sign amazing real soccer players
 

@@ -1,5 +1,5 @@
 Feature: Login
-  As a Android user
+  As a iOS user
   I want to login into GoldenManager app by GC provider
   So that I can sign amazing real soccer players
 
