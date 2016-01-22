@@ -113,8 +113,8 @@ end
 
 Then(/^I should navigate to each section which is in the sidemenu$/) do
   begin
-      find_element(:id => 'com.keradgames.goldenmanager:id/img_actionbar_offers').click
-      find_element(:id => 'com.keradgames.goldenmanager:id/txt_offers_close').click
+      find_element(:id => $d_caps[:caps][:bundleId] + ':id/img_actionbar_offers').click
+      find_element(:id => $d_caps[:caps][:bundleId] + ':id/txt_offers_close').click
   rescue
       puts 'NO OFFERS AVAILABLE'
   end
@@ -122,26 +122,41 @@ Then(/^I should navigate to each section which is in the sidemenu$/) do
 end
 
 Then(/^to the line up$/) do
+  binding.pry
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_2').click
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_line_up').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_2').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_line_up').click
+  begin
+    wait({timeout:10,interval:1}) do
+      txt = text('TRATAR')
+      if txt.displayed?
+        sleep (3)
+        txt.click 
+        sleep(3)
+      end
+    end
+    find_element(:id => 'android:id/up').click
+  rescue
+    puts ' No injured players '
+  end
+  binding.pry
 end
 
 Then(/^I should go back to stats$/) do
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_team_stats').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_team_stats').click
 end
 
 Then(/^I should go to trainings$/) do
   click_side_menu
   sidemenu_go_to_initial
 
-  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_3').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_3').click
 end
 
 Then(/^I should go to the market$/) do
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_4').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_4').click
   begin
     wait({timeout:15,interval:1}) do
       txt = text('Toca para continuar')
@@ -166,49 +181,61 @@ end
 
 Then(/^I should go to the world tour overview$/) do
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_5').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_5').click
 end
 
 Then(/^I should go to each competitions section$/) do
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_6').click
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_forthcoming').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_6').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_forthcoming').click
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_league').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_league').click
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_gmcup').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_gmcup').click
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_champions').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_champions').click
 end
 
 Then(/^finally I should get into each Club section$/) do
   click_side_menu
   sidemenu_go_to_initial
-  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_7').click
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_ticket_prices').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_7').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_ticket_prices').click
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_sponsors').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_sponsors').click
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_financial_report').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_financial_report').click
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_kits').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_kits').click
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_trophy_room').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_trophy_room').click
   click_side_menu
-  find_element(:id => 'com.keradgames.goldenmanager:id/submenu_profile').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_profile').click
+  begin
+    wait({timeout:15,interval:1}) do
+      txt = text('ACEPTAR')
+      if txt.displayed?
+        sleep (3)
+        txt.click 
+        sleep(3)
+      end
+    end
+  rescue 
+    puts 'no popup'
+  end
   click_side_menu
   sidemenu_go_to_initial
-  find_element(:id => 'com.keradgames.goldenmanager:id/menu_position_0').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_0').click
 end
 
 def click_side_menu
   begin
-    find_element(:id => 'com.keradgames.goldenmanager:id/actionbar_title').click
+    find_element(:id => $d_caps[:caps][:bundleId] + ':id/actionbar_title').click
   rescue
     puts "Can't deploy side menu"
   end
 end
 
 def sidemenu_go_to_initial
-  find_element(:id => 'com.keradgames.goldenmanager:id/menu_back').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_back').click
 end
