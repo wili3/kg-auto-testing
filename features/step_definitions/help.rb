@@ -221,7 +221,7 @@ Then(/^finally I should get into each Club section$/) do
   text_exact("Sala de trofeos").click
   button_exact("€(").click
   text_exact("Perfil del club").click
-  button("Aceptar").click
+  button("ACEPTAR").click
   button_exact("€:").click
   go_initial_sidemenu
 end
