@@ -10,7 +10,7 @@ require 'touch_action'
 #%x(cd /Users/guillemsannicolas/goldenmanager.com/; bundle exec cap staging dev:erase STAGE=staging4 USER=26)
 
 APP_PATH = '~/goldenmanager-ios/build/GoldenManager.app'
-ANDROID_APP_PATH = '/Users/guillemsannicolas/goldenmanager-android/app/GM-pre-release-br_bugfix-backstack_issues-v.1.8.0-time-10-12-22-01-2016.apk'
+ANDROID_APP_PATH = '/Users/guillemsannicolas/goldenmanager-android/app/GM-pre-release-br_develop-v.1.8.5-time-12-13-01-02-2016.apk'
 
 $user = 'guillem_dstdlxg_user@tfbnw.net'
 $passwd = '1234'

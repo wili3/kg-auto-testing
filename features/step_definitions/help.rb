@@ -122,7 +122,6 @@ Then(/^I should navigate to each section which is in the sidemenu$/) do
 end
 
 Then(/^to the line up$/) do
-  binding.pry
   click_side_menu
   find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_2').click
   find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_line_up').click
@@ -139,7 +138,6 @@ Then(/^to the line up$/) do
   rescue
     puts ' No injured players '
   end
-  binding.pry
 end
 
 Then(/^I should go back to stats$/) do
@@ -238,4 +236,112 @@ end
 
 def sidemenu_go_to_initial
   find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_back').click
+end
+
+
+#######################
+#  Navigation issues check
+#######################
+
+Then(/^I should check if the navigation trainings line up works well$/) do
+  sleep 10
+  click_side_menu
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_3').click
+  click_side_menu
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_2').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_line_up').click
+  back
+end
+
+Then(/^I should check if trainings navigation to market works well$/) do
+  click_side_menu
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_3').click
+  click_side_menu
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_4').click
+  back
+end
+
+Then(/^I should check if trainings visiting a specific section works well$/) do
+  click_side_menu
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_3').click
+  sleep 10
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/attack_training_view').click
+  sleep 10
+  back
+  click_side_menu
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_0').click
+end
+
+Then(/^I should check if competitions league and then go back works well$/) do
+  click_side_menu
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_6').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_league').click
+  back
+end
+
+Then(/^I should check if market purchases with videos works well$/) do
+  click_side_menu
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_4').click
+  sleep 20
+  touch_action = Appium::TouchAction.new
+  touch_action.press(x: 150, y: 510).perform
+  touch_action.release(x: 150, y: 510).perform
+  text('ENTRAR').click
+  begin 
+    wait({timeout:15,interval:1}) do
+      txt = text('Toca para continuar')
+      if txt.displayed?
+        sleep (3)
+        txt.click 
+        sleep(3)
+      end
+    end
+  rescue
+    puts 'no ingame tutorial'
+  end
+  back
+  back
+end
+
+Then(/^I should check if market direct purchases works well$/) do
+  click_side_menu
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_4').click
+  sleep 10
+  text('FICHAJE').click
+  sleep 10
+  touch_action = Appium::TouchAction.new
+  touch_action.press(x: 150, y: 310).perform
+  touch_action.release(x: 150, y: 310).perform
+  sleep 10
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/golden_button_title').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/txt_btn_bottom').click
+  begin
+    wait({timeout:30,interval:1}) do
+      find_element(:id => $d_caps[:caps][:bundleId] + ':id/txt_emotional_call_to_action').click
+    end
+  rescue
+    puts 'no emotional received :('
+  end
+  back
+end
+
+Then(/^I should check if perform a substitution works well$/) do
+  click_side_menu
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_2').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_line_up').click
+  sleep 5
+  touch_action = Appium::TouchAction.new
+  $element_1 = find_element(:id => $d_caps[:caps][:bundleId] + ':id/cb1')
+  element_2 = find_element(:id => $d_caps[:caps][:bundleId] + ':id/cb3')
+  touch_action.swipe(:start_x => $element_1.location.x, :start_y => $element_1.location.y, :duration => 2000, :end_x => element_2.location.x, :end_y => element_2.location.y).perform
+end
+
+Then(/^I should check if perform a player sale works well$/) do
+  $element_1.click
+  back
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/img_left_drawer_indicator').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/player_view').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/btn_sell').click
+  find_element(:id => $d_caps[:caps][:bundleId] + ':id/btn_action').click
+  back
 end
