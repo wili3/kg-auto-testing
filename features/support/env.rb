@@ -281,7 +281,7 @@ def report_to_testrail(id, status)
   message = ""
   message = error_message if status == 5
   message = success_message if status == 1
-  %x(curl -H "Content-Type: application/json" -u "#{$testrail_username}:#{$testrail_password}" -d '{"status_id":#{status},"comment":"#{message}"}' "https://marynakeradgames.testrail.net//index.php?/api/v2/add_result/#{id}" --verbose)
+  %x(curl -H "Content-Type: application/json" -u "#{$testrail_username}:#{$testrail_password}" -d '{"status_id":#{status},"comment":"#{message}"}' "https://marynakeradgames.testrail.net//index.php?/api/v2/add_result/#{id}")
 end
 
 def error_message

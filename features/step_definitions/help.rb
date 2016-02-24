@@ -27,11 +27,16 @@ end
 #######################
 
 When(/^click login with G\+ button$/) do
-  wait{text("Jugar con Google+").click} 
   begin
     wait{text("Jugar con Google+").click} 
+    begin
+      wait{text("Jugar con Google+").click} 
+    rescue
+      puts 'no need to tap twice'
+    end
+    report_to_testrail(405,1)
   rescue
-    puts 'no need to tap twice'
+    report_to_testrail(405,5)
   end
 end
 
