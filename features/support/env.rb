@@ -19,7 +19,7 @@ $testrail_password = testrail_credentials.last
 $testrail_password = $testrail_password.split("\n").first
 $testrail_password = $testrail_password.split(":").last
 
-APP_PATH = '~/goldenmanager-ios/build/GoldenManager.app'
+APP_PATH = '~/goldenmanager-ios/build/GoldenManager.app/GoldenManager.app'
 ANDROID_APP_PATH = '/Users/guillemsannicolas/goldenmanager-android/app/GM-pre-release-br_develop-v.1.8.5-time-12-13-01-02-2016.apk'
 
 $user = 'guillem_dstdlxg_user@tfbnw.net'
@@ -39,8 +39,8 @@ def desired_caps_real_device
 	desired_caps = {
 	  caps: {
 	    platformName: 		'iOS',
-	    versionNumber: 		'9.0',
-	    deviceName:   		'iPad de Guillem',
+	    versionNumber: 		'8.4.1',
+	    deviceName:   		'iPhone de Guillem',
       newCommandTimeout: 1000,  
 	    udid:         		'52257b7d0ae102e2d79f02448b5486aca8c6e715',
 	    autoAcceptAlerts: true,
@@ -306,6 +306,8 @@ $d_caps = desired_caps_android if res == 'a'
 
 $d_caps[:caps][:fullReset] = true if res_yn == 'y'
 $d_caps[:caps][:fullReset] = false if res_yn == 'n'
+
+%x( ideviceinstaller -i #{APP_PATH}) if $d_caps[:caps][:fullReset] && $d_caps[:caps][:platformName] == 'iOS'
 
 $driver_instance =Appium::Driver.new($d_caps).start_driver
 $driver_instance.manage.timeouts.implicit_wait = 0
