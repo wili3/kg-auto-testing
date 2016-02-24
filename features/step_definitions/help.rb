@@ -139,16 +139,25 @@ Then(/^I should navigate to each section which is in the sidemenu$/) do
 end
 
 Then(/^to the line up$/) do
-  open_sidemenu
-  text_exact('K').click
-  text_exact('1').click
-  button_exact("€1").click
+  begin
+    open_sidemenu
+    text_exact('K').click
+    text_exact('1').click
+    button_exact("€1").click
+  rescue
+    # here has to go the error reoport
+  end
 end
 
 Then(/^I should go back to stats$/) do
-  text_exact('I').click
-  button_exact("€I").click
-  go_initial_sidemenu
+  begin
+    text_exact('I').click
+    button_exact("€I").click
+    go_initial_sidemenu
+    # here has to go the success report
+  rescue
+    # here has to go the error reoport
+  end
 end
 
 Then(/^I should go to trainings$/) do
