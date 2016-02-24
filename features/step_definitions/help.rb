@@ -34,10 +34,10 @@ When(/^click login with G\+ button$/) do
     rescue
       puts 'no need to tap twice'
     end
-    report_to_testrail(405,1)
   rescue
     report_to_testrail(405,5)
   end
+  report_to_testrail(405,1)
 end
 
 Then(/^I should navigate to the dashboard$/) do
