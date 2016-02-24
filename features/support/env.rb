@@ -1,13 +1,23 @@
 require 'rubygems'
 require 'appium_lib'
-#require 'appium_console'
 require 'selenium/webdriver'
 require 'pry'
 require 'rspec'
 require 'net/http'
 require 'touch_action'
+require 'testrail'
 
 #%x(cd /Users/guillemsannicolas/goldenmanager.com/; bundle exec cap staging dev:erase STAGE=staging4 USER=26)
+
+testrail_credentials = File.readlines("creds")
+
+$testrail_username = testrail_credentials.first
+$testrail_username = $testrail_username.split("\n").first
+$testrail_username = $testrail_username.split(":").last
+
+$testrail_password = testrail_credentials.last
+$testrail_password = $testrail_password.split("\n").first
+$testrail_password = $testrail_password.split(":").last
 
 APP_PATH = '~/goldenmanager-ios/build/GoldenManager.app'
 ANDROID_APP_PATH = '/Users/guillemsannicolas/goldenmanager-android/app/GM-pre-release-br_develop-v.1.8.5-time-12-13-01-02-2016.apk'
@@ -265,22 +275,37 @@ def check_something_went_wrong
   end
 end
 
+def report_to_testrail(id, status)
+  id = id.to_i if !id.is_a? Integer
+  status = status.to_i if !status.is_a? Integer
+  message = ""
+  message = error_message if status == 5
+  message = success_message if status == 1
+  %x(curl -H "Content-Type: application/json" -u "#{$testrail_username}:#{$testrail_password}" -d '{"status_id":#{status},"comment":#{message}}' "https://marynakeradgames.testrail.net//index.php?/api/v2/add_result/#{id}" --verbose)
+end
+
+def error_message
+  "Something went wrong while testing this"
+end
+
+def success_message
+  "Test succeded"
+end
+
 #guarrada
 
-# puts 'What do you want to use? a = android , i =  ios real device , is = ios simulator'
-# res = gets.chomp
+puts 'What do you want to use? a = android , i =  ios real device , is = ios simulator'
+res = gets.chomp
 
-# puts 'Do you want full reset ? y/n'
-# res_yn = gets.chomp
+puts 'Do you want full reset ? y/n'
+res_yn = gets.chomp
 
+$d_caps = desired_caps_simulator if res == 'is'
+$d_caps = desired_caps_real_device if res == 'i'
+$d_caps = desired_caps_android if res == 'a'
 
-# $d_caps = desired_caps_simulator if res == 'is'
-# $d_caps = desired_caps_real_device if res == 'i'
-# $d_caps = desired_caps_android if res == 'a'
-
-# $d_caps[:caps][:fullReset] = true if res_yn == 'y'
-# $d_caps[:caps][:fullReset] = false if res_yn == 'n'
-
+$d_caps[:caps][:fullReset] = true if res_yn == 'y'
+$d_caps[:caps][:fullReset] = false if res_yn == 'n'
 
 $d_caps = desired_caps_android
 

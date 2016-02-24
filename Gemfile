@@ -1,5 +1,6 @@
 source "https://www.rubygems.org"
 
+gem "testrail"
 gem "appium_lib"
 gem "selenium"
 gem "cucumber"
