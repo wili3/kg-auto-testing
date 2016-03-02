@@ -7,7 +7,7 @@ require 'net/http'
 require 'touch_action'
 require 'testrail'
 
-%x(cd /Users/guillemsannicolas/goldenmanager.com/; bundle exec cap staging dev:makethemrich STAGE=staging4 USER=21)
+%x(cd /Users/guillemsannicolas/goldenmanager.com/; bundle exec cap staging dev:makethemrich STAGE=staging4 USER=52)
 
 testrail_credentials = File.readlines("creds")
 

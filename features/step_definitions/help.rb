@@ -286,9 +286,13 @@ Then(/^I should check if trainings visiting a specific section works well$/) do
   click_side_menu
   find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_3').click
   sleep 10
-  find_element(:id => $d_caps[:caps][:bundleId] + ':id/attack_training_view').click
-  sleep 10
-  back
+  begin
+    find_element(:id => $d_caps[:caps][:bundleId] + ':id/attack_training_view').click
+    sleep 10
+    back
+  rescue
+    puts 'pre season or pre match'
+  end
   click_side_menu
   find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_0').click
 end
