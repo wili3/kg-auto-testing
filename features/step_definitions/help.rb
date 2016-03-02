@@ -27,17 +27,20 @@ end
 #######################
 
 When(/^click login with G\+ button$/) do
+  no_report = true
   begin
     wait{text("Jugar con Google+").click} 
     begin
       wait{text("Jugar con Google+").click} 
     rescue
       puts 'no need to tap twice'
+      no_report = false
     end
+    report_to_testrail(405,1)
   rescue
-    report_to_testrail(405,5)
+    no_report = false
   end
-  report_to_testrail(405,1)
+  report_to_testrail(405,5) if no_report
 end
 
 Then(/^I should navigate to the dashboard$/) do
@@ -255,6 +258,19 @@ Then(/^I should check if the navigation trainings line up works well$/) do
   click_side_menu
   find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_2').click
   find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_line_up').click
+  begin
+    wait({timeout:10,interval:1}) do
+      txt = text('TRATAR')
+      if txt.displayed?
+        sleep (3)
+        txt.click 
+        sleep(3)
+      end
+    end
+    find_element(:id => 'android:id/up').click
+  rescue
+    puts ' No injured players '
+  end
   back
 end
 
@@ -291,7 +307,12 @@ Then(/^I should check if market purchases with videos works well$/) do
   touch_action = Appium::TouchAction.new
   touch_action.press(x: 150, y: 510).perform
   touch_action.release(x: 150, y: 510).perform
-  text('ENTRAR').click
+  sleep 5
+  begin
+    text('ENTRAR').click
+  rescue
+    text_exact('1').click
+  end
   begin 
     wait({timeout:15,interval:1}) do
       txt = text('Toca para continuar')
@@ -324,8 +345,22 @@ Then(/^I should check if market direct purchases works well$/) do
     wait({timeout:30,interval:1}) do
       find_element(:id => $d_caps[:caps][:bundleId] + ':id/txt_emotional_call_to_action').click
     end
+    begin
+      wait({timeout:10,interval:1}) do
+        txt = text('TRATAR')
+        if txt.displayed?
+          sleep (3)
+          txt.click 
+          sleep(3)
+        end
+      end
+      find_element(:id => 'android:id/up').click
+    rescue
+      puts ' No injured players '
+    end
   rescue
     puts 'no emotional received :('
+    back
   end
   back
 end
@@ -334,6 +369,19 @@ Then(/^I should check if perform a substitution works well$/) do
   click_side_menu
   find_element(:id => $d_caps[:caps][:bundleId] + ':id/menu_position_2').click
   find_element(:id => $d_caps[:caps][:bundleId] + ':id/submenu_line_up').click
+  begin
+    wait({timeout:10,interval:1}) do
+      txt = text('TRATAR')
+      if txt.displayed?
+        sleep (3)
+        txt.click 
+        sleep(3)
+      end
+    end
+    find_element(:id => 'android:id/up').click
+  rescue
+    puts ' No injured players '
+  end
   sleep 5
   touch_action = Appium::TouchAction.new
   $element_1 = find_element(:id => $d_caps[:caps][:bundleId] + ':id/cb1')
