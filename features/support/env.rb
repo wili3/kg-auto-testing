@@ -7,7 +7,7 @@ require 'net/http'
 require 'touch_action'
 require 'testrail'
 
-binding.pry
+# binding.pry
 `cd /Users/guillemsannicolas/goldenmanager.com/; bundle exec cap staging dev:makethemrich STAGE=staging4 USER=52`
 
 
@@ -23,7 +23,7 @@ $testrail_password = $testrail_password.split("\n").first
 $testrail_password = $testrail_password.split(":").last
 
 APP_PATH = '~/goldenmanager-ios/build/GoldenManager.app'
-ANDROID_APP_PATH = '/Users/guillemsannicolas/goldenmanager-android/app/GM-pre-release-br_hotfix-remove_chartboost-v.1.8.9-time-13-16-02-03-2016.apk'
+ANDROID_APP_PATH = '/Users/joanmaesosimo/Projects/goldenmanager-android/app/GM-pre-release-br_develop-v.1.8.11-time-13-05-06-04-2016.apk'
 
 $user = 'guillem_dstdlxg_user@tfbnw.net'
 $passwd = '1234'
