@@ -14,21 +14,25 @@ end
 #  Login with G+
 #######################
 
-When(/^click login with G\+ button$/) do
-  no_report = true
+When(/^click login with G\+ button$/) do          #PENDING TO SOLVE AND REVISE
   begin
     wait{text("Jugar con Google+").click} 
     begin
       wait{text("Jugar con Google+").click} 
     rescue
       puts 'no need to tap twice'
-      no_report = false
     end
+    wait{text_exact("joan.maeso@keradgames.com").click}
+  rescue
+  end
+
+  #binding.pry
+  begin 
+    find_element(:id => $d_caps[:caps][:bundleId] + ':id/actionbar_title')
     report_to_testrail(405,1)
   rescue
-    no_report = false
+    report_to_testrail(405,5)
   end
-  report_to_testrail(405,5) if no_report
 end
 
 Then(/^I should navigate to the dashboard$/) do
@@ -67,4 +71,20 @@ Then(/^I should navigate to the dashboard$/) do
     end
   end 
   
+end
+
+#############
+# Navigation to the line up
+#############
+
+Then(/^I should navigate to the line up$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^I should navigate to the stats section$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^finally I should come back to the dashboard$/) do
+  pending # Write code here that turns the phrase above into concrete actions
 end
