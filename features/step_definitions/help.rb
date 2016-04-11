@@ -26,7 +26,6 @@ When(/^click login with G\+ button$/) do          #PENDING TO SOLVE AND REVISE
   rescue
   end
 
-  #binding.pry
   begin 
     find_element(:id => $d_caps[:caps][:bundleId] + ':id/actionbar_title')
     report_to_testrail(405,1)
@@ -73,18 +72,59 @@ Then(/^I should navigate to the dashboard$/) do
   
 end
 
+
 #############
 # Navigation to the line up
 #############
 
 Then(/^I should navigate to the line up$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  go_to_menu
+  go_to_team
+  go_to_lineup
+  #binding.pry
+end
+
+Then(/^perform a sustitution$/) do
+  #pending # Write code here that turns the phrase above into concrete actions
+  player1 = find_element(:id => $d_caps[:caps][:bundleId] + ":id/cb1")
+  player2 = find_element(:id => $d_caps[:caps][:bundleId] + ':id/cb3')
+
+  drag_and_drop(player1, player2)
+  click_button(":id/actionbar_custom_action")
 end
 
 Then(/^I should navigate to the stats section$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  go_to_menu
+  go_to_stats
 end
 
 Then(/^finally I should come back to the dashboard$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  go_to_menu
+  go_back
+  go_dashboard
+  driver_quit
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

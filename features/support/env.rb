@@ -150,3 +150,53 @@ $driver_instance.manage.timeouts.implicit_wait = 0
 Appium.promote_appium_methods self.class
 
 puts 'test succeded!'
+
+def go_to_menu
+  click_button(":id/actionbar_title")
+end
+
+def go_to_team
+  click_button(":id/menu_position_2")
+end
+
+def go_to_lineup
+   click_button(":id/submenu_line_up")
+end
+
+def go_to_stats
+  click_button(":id/submenu_team_stats")
+end
+
+def go_back
+  click_button(":id/menu_back")
+end
+
+def go_dashboard
+  click_button(":id/menu_position_0")
+end 
+
+def drag_and_drop(player1, player2)
+  action = Appium::TouchAction.new
+  action.press({:element => player1, :x => player1.location.x, :y => player1.location.y}).perform
+
+  action = Appium::TouchAction.new
+  action.move_to({:x => player2.location.x, :y => player2.location.y, :element => player2}).wait(5).release
+
+  action.perform
+  # action = Appium::TouchAction.new
+  # action.release({:x => player2.location.x, :y => player2.location.y, :element => player2}).perform
+end
+
+def click_button(id)
+  begin
+    wait{find_element(:id => $d_caps[:caps][:bundleId] + id).click}
+  rescue
+    puts "Unable to click #{id}"
+    raise
+  end
+end
+
+
+
+
+
