@@ -7,6 +7,9 @@ Given(/^I have the App running with appium$/) do
  # wait{button('Cancel').click} if $d_caps[:caps][:platformName] == "Android"
  # wait{button('Cancel').click} if !is_real_device($d_caps)
   sleep(10)
+  $window_width = Appium::Common.window_size.width
+  $window_height = Appium::Common.window_size.height
+
   puts 'PASSED!'
 end
 
@@ -73,9 +76,9 @@ Then(/^I should navigate to the dashboard$/) do
 end
 
 
-#############
-# Navigation to the line up
-#############
+#############################
+# Navigation to the line up #
+#############################
 
 Then(/^I should navigate to the line up$/) do
   go_to_menu
@@ -85,12 +88,11 @@ Then(/^I should navigate to the line up$/) do
 end
 
 Then(/^perform a sustitution$/) do
-  #pending # Write code here that turns the phrase above into concrete actions
   player1 = find_element(:id => $d_caps[:caps][:bundleId] + ":id/cb1")
   player2 = find_element(:id => $d_caps[:caps][:bundleId] + ':id/cb3')
 
   drag_and_drop(player1, player2)
-  click_button(":id/actionbar_custom_action")
+  click_button(":id/actionbar_custom_action") #Click aceptar y guardar
 end
 
 Then(/^I should navigate to the stats section$/) do
@@ -102,12 +104,37 @@ Then(/^finally I should come back to the dashboard$/) do
   go_to_menu
   go_back
   go_dashboard
-  driver_quit
+  binding.pry
+  action = Appium::TouchAction.new
+  action.swipe({:start_x => (($window_width / 3) * 2), :start_y => (($window_height / 7) * 7), :end_x => (($window_width / 3) * 1), :end_y => (($window_height / 7) * 7), :duration => 100}).perform
+  binding.pry
 end
 
 
+###########################
+# Navigation to trainings #
+###########################
 
+Then(/^I should navigate to the trainings$/) do
+  go_to_menu
+  go_to_trainings
+end
 
+Then(/^perform trainings$/) do
+  #pending # Write code here that turns the phrase above into concrete actions
+  binding.pry
+  drop_spot = find_element(:id => $d_caps[:caps][:bundleId] + ":id/lyt_center_view")
+
+  x1 = ($window_width / 3) * 2
+  y1 = ($window_height / 4) * 3
+  x2 = $window_width / 3
+  y2 = y1
+  duration = 100
+  do_swipe(x1, y1, x2, y2, duration)
+  binding.pry
+  driver_quit
+  # dropper :id/lyt_center_view
+end
 
 
 

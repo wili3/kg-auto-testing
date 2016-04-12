@@ -7,6 +7,8 @@ require 'net/http'
 require 'touch_action'
 require 'testrail'
 
+%x(cd /Users/joanmaesosimo/Projects/goldenmanager.com/; bundle exec cap staging dev:makethemrich STAGE=staging4 USER=537)
+
 testrail_credentials = File.readlines("creds")
 
 $testrail_username = testrail_credentials.first
@@ -164,6 +166,7 @@ def go_to_lineup
 end
 
 def go_to_stats
+  sleep 1
   click_button(":id/submenu_team_stats")
 end
 
@@ -173,14 +176,24 @@ end
 
 def go_dashboard
   click_button(":id/menu_position_0")
-end 
+end
+
+def go_to_trainings
+  click_button(":id/menu_position_3")
+end
+
+def do_swipe(x1, y1, x2, y2, duration)
+  action = Appium::TouchAction.new
+  action.swipe({:start_x => x1, :start_y => y1, :end_x => x2, :end_y => y2, :duration => duration}).perform
+end
+  
 
 def drag_and_drop(player1, player2)
   action = Appium::TouchAction.new
   action.press({:element => player1, :x => player1.location.x, :y => player1.location.y}).perform
 
   action = Appium::TouchAction.new
-  action.move_to({:x => player2.location.x, :y => player2.location.y, :element => player2}).wait(5).release
+  action.move_to({:x => player2.location.x, :y => player2.location.y, :element => player2}).wait(20).release
 
   action.perform
   # action = Appium::TouchAction.new
